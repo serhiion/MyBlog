@@ -1,9 +1,31 @@
-version: "3"
+version: "3.9"
+
 services:
+  database:
+    container_name: postgrate
+    environment:
+      POSTGRES_USER: s-admin
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: database1
+    image: postgres
+    networks:
+      - main
+    ports:
+      - 5405:5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
   app:
+    container_name: web
     build: .
     command: python main.py
     ports:
       - "5000:5000"
+    networks:
+      - main
     volumes:
-      - ./app:/app
+      - ./app:/usr/src/app/app
+      - ./migrations:/usr/src/app/migrations
+
+networks:
+  main:

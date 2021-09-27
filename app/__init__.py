@@ -25,6 +25,7 @@ babel = Babel()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
+    # app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://s-admin:my_1234@localhost:5432/database1'
     app.config.from_object(config_class)
 
     db.init_app(app)

@@ -150,6 +150,7 @@ def search():
     return render_template('search.html', title=_('Search'), posts=posts,
                            next_url=next_url, prev_url=prev_url)
 
+
 @bp.route('/user/<username>/popup')
 @login_required
 def user_popup(username):

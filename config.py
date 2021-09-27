@@ -1,5 +1,7 @@
 import os
 from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.dialects.postgresql import psycopg2
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
@@ -7,8 +9,15 @@ load_dotenv(os.path.join(basedir, '.env'))
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'app.db')
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    #     'sqlite:///' + os.path.join(basedir, 'app.db')
+
+    # SQLALCHEMY_DATABASE_URI = 'postgresql://s-admin:1234@localhost:5432/database1'
+    SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://s-admin:1234@database:5432/database1'
+    # SQLALCHEMY_DATABASE_URI = create_engine('postgresql+psycopg2://s-admin:1234@database/database1')
+    # SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg2://s-admin:1234@database1:5432/postgres"
+
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)
